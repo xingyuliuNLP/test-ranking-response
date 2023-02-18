@@ -77,8 +77,8 @@
       </div>
       <div style="width: 30%; float:right" class="msger-inputarea">
     <form class="msger-inputarea" method="post" action="{{ url_for('add_commentaire') }}>
-      <textarea type="input" class="msger-input" id="textInput" name="response" placeholder="Entrer votre réponse ..."></textarea>
-      <textarea type="input" class="cmt-input" id="textInput" name="commentaire">Commentaire : </textarea>
+      <textarea type="input" class="msger-input" id="response" name="response" placeholder="Entrer votre réponse ..."></textarea>
+      <textarea type="input" class="cmt-input" id="commentaire" name="commentaire">Commentaire : </textarea>
       <button type="submit" class="msger-send-btn" onclick="clearContent()">Envoyer</button>
     </form>
     </div>
@@ -223,7 +223,7 @@
         var firstElement=document.querySelector("ul > li").innerText;
         // var firstElement=$("li span").eq(1);
         console.log(firstElement);
-        var response = document.getElementById('textInput');
+        //var response = document.getElementById('textInput');
         response.value=firstElement;
         var secondElement=document.querySelectorAll("ul > li")[1]
         var thirdElement=document.querySelectorAll("ul > li")[2]
