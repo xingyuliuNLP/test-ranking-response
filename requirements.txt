@@ -1,7 +1,5 @@
 gunicorn==20.1.0
 Flask==2.2.2
-Flask-SocketIO
-gevent-websocket
 Werkzeug==2.2.2
 Flask-Migrate
 Flask-SQLAlchemy
@@ -9,4 +7,3 @@ flask_wtf
 SQLAlchemy
 psycopg2
 python-dotenv
-gevent
