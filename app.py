@@ -62,20 +62,13 @@ def expert():
 
 @app.route('/add', methods=['POST'])
 def add_commentaire():
-    try:
-        response = request.values.get('response')
-        commentaire = request.values.get('commentaire')
-    except (KeyError):
-        # Redisplay the question voting form.
-        return render_template('index.html', {
-            'error_message': "Veuillez cliquer sur le bouton <sauvegarder> et modifier la réponse si besoin",
-        })
-    else:
-        result=Result()
-        result.commentaire = commentaire
-        result.answer = response
-        db.session.add(result)
-        db.session.commit()
+    response = request.values.get('response')
+    commentaire = request.values.get('commentaire')
+    result=Result()
+    result.commentaire = commentaire
+    result.answer = response
+    db.session.add(result)
+    db.session.commit()
 
 @app.route("/get_response/")
 def get_bot_response():
