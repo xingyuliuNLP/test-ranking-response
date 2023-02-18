@@ -42,8 +42,7 @@ class Cands(db.Model):
 class Result(db.Model):
     __tablename__ = 'results'
     id = Column(Integer, primary_key=True)
-    source = Column(String(50))
-    question = Column(String(8000))
+    commentaire = Column(String(8000))
     answer = Column(String(8000))
 
 ## database setting ##
@@ -61,6 +60,23 @@ def expert():
     cands=Cands.query.all()
     return render_template("index.html", cands=cands)
 
+@app.route('/add', methods=['POST'])
+@csrf.exempt
+def add_commentaire():
+    try:
+        response = request.values.get('response')
+        commentaire = request.values.get('commentaire')
+    except (KeyError):
+        # Redisplay the question voting form.
+        return render_template('index.html', {
+            'error_message': "Veuillez cliquer sur le bouton <sauvegarder> et modifier la réponse si besoin",
+        })
+    else:
+        result=Result()
+        result.commentaire = commentaire
+        result.answer = response
+        db.session.add(result)
+        db.session.commit()
 
 @app.route("/get_response/")
 def get_bot_response():

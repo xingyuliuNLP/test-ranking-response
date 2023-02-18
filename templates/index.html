@@ -76,7 +76,7 @@
       </main>
       </div>
       <div style="width: 30%; float:right" class="msger-inputarea">
-    <form class="msger-inputarea" method="post">
+    <form class="msger-inputarea" method="post" action="{{ url_for('add_restaurant') }}>
       <textarea type="input" class="msger-input" id="textInput" name="response" placeholder="Entrer votre réponse ..."></textarea>
       <textarea type="input" class="cmt-input" id="textInput" name="commentaire">Commentaire : </textarea>
       <button type="submit" class="msger-send-btn" onclick="clearContent()">Envoyer</button>
@@ -179,25 +179,6 @@
 
     }
 
-
-      // Choose response
-      var response = document.getElementById('textInput');
-
-      function chooseResponse1(){
-      var checkbox1 = document.getElementById('response1');
-      if (checkbox1.checked == true){
-        var response1AModifier = document.getElementById("r1").innerHTML;
-        response.value += response1AModifier;
-        // console.log(response1AModifier);
-      } else {
-        // response.value += '&nbsp';
-        var temp = response.value;
-        var response1AModifier = document.getElementById("r1").innerHTML;
-        response.value = temp.replace(response1AModifier,'');
-      }
-
-      }
-
       // send new question
       function newQuestion(){
         msg=[1,2,3,4]
@@ -207,14 +188,14 @@
         document.getElementById("r2").textContent=msg[2];
         document.getElementById("r3").textContent=msg[3];
     }
-      function finalResponse(rawText) {
+      //function finalResponse(rawText) {
 
       // Send final answer
-      $.get("/post_answer", { msg: rawText }).done(function () {
-        console.log(rawText);
-      });
+      //$.get("/post_answer", { msg: rawText }).done(function () {
+        //console.log(rawText);
+      //});
 
-      }
+      //}
     // clear response
     function clearContent(){
       // document.getElementById('proposition').innerHTML = '';
