@@ -10,7 +10,6 @@
   <link rel="shortcut icon" href="#" />
   <link rel="stylesheet" href="{{ url_for('static', filename='styles/style_expert.css') }}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" />
   <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
@@ -95,20 +94,8 @@
     const rankingList1 = get("#r1");
     const rankingList2 = get("#r2");
     const rankingList3 = get("#r3");
-    // var socket = io.connect('https://' + document.domain + ':' + location.port);
-    var socket = io()
-    socket.on('connect', function() {
-        console.log('Connected to server');
-    });
-    socket.on('receive_question', function(msg) {
-        console.log('Received question: ', msg)
-        appendMessage(PERSON_NAME, PERSON_IMG, "left", msg[0]);
-        // botResponse(msg);
-        document.getElementById("r1").textContent=msg[1];
-        document.getElementById("r2").textContent=msg[2];
-        document.getElementById("r3").textContent=msg[3];
 
-    })
+
 
     // Icons made by Freepik from www.flaticon.com
     const BOT_IMG = "../static/styles/Logo-App.jpg";
@@ -126,7 +113,6 @@
 
       appendMessage(EXPERT_NAME, EXPERT_IMG, "right", msgText);
       // finalResponse(msgText);
-      socket.emit('response', msgText)
 
       msgerInput.value = "";
       cmtInput.value = "Commentaire : ";
@@ -214,7 +200,12 @@
 
       // send new question
       function newQuestion(){
-      //
+        msg=[1,2,3,4]
+        appendMessage(PERSON_NAME, PERSON_IMG, "left", msg[0]);
+        // botResponse(msg);
+        document.getElementById("r1").textContent=msg[1];
+        document.getElementById("r2").textContent=msg[2];
+        document.getElementById("r3").textContent=msg[3];
     }
       function finalResponse(rawText) {
 
