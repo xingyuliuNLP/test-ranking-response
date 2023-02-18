@@ -61,7 +61,6 @@ def expert():
     return render_template("index.html", cands=cands)
 
 @app.route('/add', methods=['POST'])
-@csrf.exempt
 def add_commentaire():
     try:
         response = request.values.get('response')
