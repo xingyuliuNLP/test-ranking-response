@@ -39,6 +39,7 @@ class Cands(db.Model):
     question = Column(String(8000))
     answer = Column(String(8000))
     sourceq = Column(String(50))
+    thematique = Column(String(50))
     modified_answer = Column(String(8000))
     commentaires = Column(String(8000))
 
@@ -54,7 +55,8 @@ def return_responses(q):
 
 @app.route("/", methods=['GET', 'POST'])
 def expert():
-    cands=Cands.query.all()
+    user=request.values.get('username')
+    cands=Cands.query.filter_by(username=user).all()
     return render_template("index.html", cands=cands)
 
 @app.route('/add', methods=['POST'])
