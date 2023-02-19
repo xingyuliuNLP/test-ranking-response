@@ -38,10 +38,12 @@
             <div class="msg-info-name">MySLife</div>
             <div class="msg-info-time"></div>
           </div>
-          <input name="username" id="username" type="text">
-          <button type="submit" class="msger-send-btn" onclick="newQuestion()">Nouvelle question</button>
+          <form class="newquestion" method="post">
+            <label for="username">Prénom</label>
+            <input name="username" id="username" type="text">
+            <button type="submit" class="msger-send-btn" onclick="showOptions()">Nouvelle question</button>
+          </form>
           <div class="msg-text">
-            {{ cands.id }}
           </div>
         </div>
       </div>
@@ -88,6 +90,7 @@
   <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
   <script>
     const msgerForm = get(".msger-inputarea");
+    const newQuestion=get(".newquestion")
     const msgerInput = get(".msger-input");
     const cmtInput = get(".cmt-input");
     const msgerChat = get(".msger-chat");
@@ -106,6 +109,17 @@
     const PERSON_NAME = "Utilisatrice";
     const EXPERT_NAME = "Experte";
 
+    newQuestion.addEventListener("submit", event => {
+      event.preventDefault();
+
+      //appendMessage(PERSON_NAME, PERSON_IMG, "left", msgText);
+      // finalResponse(msgText);
+
+      msgerInput.value = "";
+      cmtInput.value = "Commentaire : ";
+
+
+    });
     msgerForm.addEventListener("submit", event => {
       event.preventDefault();
 
@@ -114,10 +128,6 @@
 
       appendMessage(EXPERT_NAME, EXPERT_IMG, "right", msgText);
       // finalResponse(msgText);
-
-      msgerInput.value = "";
-      cmtInput.value = "Commentaire : ";
-
 
     });
 
@@ -180,23 +190,18 @@
 
     }
 
-      // send new question
-      function newQuestion(){
-        msg=[1,2,3,4]
-        appendMessage(PERSON_NAME, PERSON_IMG, "left", msg[0]);
-        // botResponse(msg);
-        document.getElementById("r1").textContent=msg[1];
-        document.getElementById("r2").textContent=msg[2];
-        document.getElementById("r3").textContent=msg[3];
-    }
-      //function finalResponse(rawText) {
+      function newQuestion(rawText) {
 
-      // Send final answer
-      //$.get("/post_answer", { msg: rawText }).done(function () {
-        //console.log(rawText);
-      //});
+     $.get("/new_question", { msg: rawText }).done(function () {
+        console.log(msg)
+        console.log(rawText);
+        //appendMessage(PERSON_NAME, PERSON_IMG, "left", msg);
+        //document.getElementById("r1").textContent=msg[1];
+        //document.getElementById("r2").textContent=msg[2];
+        //document.getElementById("r3").textContent=msg[3];
+      });
 
-      //}
+      }
     // clear response
     function clearContent(){
       // document.getElementById('proposition').innerHTML = '';

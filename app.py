@@ -56,7 +56,7 @@ def return_responses(q):
 @app.route("/", methods=['GET', 'POST'])
 def expert():
 
-    return render_template("index.html", cands=cands)
+    return render_template("index.html")
 
 @app.route('/add', methods=['POST'])
 def add_commentaire():
@@ -72,7 +72,7 @@ def add_commentaire():
 def send_question():
     user=request.values.get('username')
     cands=Cands.query.filter_by(username=user).all()
-    return rs
+    return cands
 
 if __name__ == "__main__":
     app.run()
