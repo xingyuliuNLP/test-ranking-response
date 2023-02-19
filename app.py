@@ -55,8 +55,7 @@ def return_responses(q):
 
 @app.route("/", methods=['GET', 'POST'])
 def expert():
-    user=request.values.get('username')
-    cands=Cands.query.filter_by(username=user).all()
+
     return render_template("index.html", cands=cands)
 
 @app.route('/add', methods=['POST'])
@@ -69,10 +68,10 @@ def add_commentaire():
     db.session.add(result)
     db.session.commit()
 
-@app.route("/get_response/")
-def get_bot_response():
-    question = request.args.get('msg')
-    rs=return_responses(question)
+@app.route("/newquestion/")
+def send_question():
+    user=request.values.get('username')
+    cands=Cands.query.filter_by(username=user).all()
     return rs
 
 if __name__ == "__main__":
