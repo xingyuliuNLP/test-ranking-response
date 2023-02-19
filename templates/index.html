@@ -41,7 +41,7 @@
           <form class="newquestion" method="post">
             <label for="username">Prénom</label>
             <input name="username" id="username" type="text">
-            <button type="submit" class="msger-send-btn" onclick="showOptions()">Nouvelle question</button>
+            <button type="submit" class="msger-send-btn">Nouvelle question</button>
           </form>
           <div class="msg-text">
           </div>
@@ -90,7 +90,7 @@
   <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
   <script>
     const msgerForm = get(".msger-inputarea");
-    const newQuestion=get(".newquestion")
+    const newQuestion=get(".msg-bubble")
     const msgerInput = get(".msger-input");
     const cmtInput = get(".cmt-input");
     const msgerChat = get(".msger-chat");
@@ -114,10 +114,7 @@
 
       //appendMessage(PERSON_NAME, PERSON_IMG, "left", msgText);
       // finalResponse(msgText);
-
-      msgerInput.value = "";
-      cmtInput.value = "Commentaire : ";
-
+      newQuestions()
 
     });
     msgerForm.addEventListener("submit", event => {
@@ -190,7 +187,7 @@
 
     }
 
-      function newQuestion(rawText) {
+      function newQuestions(rawText) {
 
      $.get("/new_question", { msg: rawText }).done(function () {
         console.log(msg)
