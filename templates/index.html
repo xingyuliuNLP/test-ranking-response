@@ -189,7 +189,7 @@
 
       function newQuestions(rawText) {
 
-     $.get("/send_question", { msg: rawText }).done(function () {
+     $.get("/newquestion", { msg: rawText }).done(function () {
         console.log(msg)
         console.log(rawText);
         //appendMessage(PERSON_NAME, PERSON_IMG, "left", msg);
