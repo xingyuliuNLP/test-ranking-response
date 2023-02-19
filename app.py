@@ -35,15 +35,12 @@ migrate = Migrate(app, db)
 class Cands(db.Model):
     __tablename__ = 'candidates'
     id = Column(Integer, primary_key=True)
-    source = Column(String(50))
+    username = Column(String(50))
     question = Column(String(8000))
     answer = Column(String(8000))
-
-class Result(db.Model):
-    __tablename__ = 'results'
-    id = Column(Integer, primary_key=True)
-    commentaire = Column(String(8000))
-    answer = Column(String(8000))
+    sourceq = Column(String(50))
+    modified_answer = Column(String(8000))
+    commentaires = Column(String(8000))
 
 ## database setting ##
 
@@ -64,9 +61,9 @@ def expert():
 def add_commentaire():
     response = request.values.get('response')
     commentaire = request.values.get('commentaire')
-    result=Result()
-    result.commentaire = commentaire
-    result.answer = response
+    result=Cands()
+    result.commentaires = commentaire
+    result.modified_answer = response
     db.session.add(result)
     db.session.commit()
 
