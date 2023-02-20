@@ -8,6 +8,7 @@ from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
 app.static_folder = 'static'
+csrf = CSRFProtect(app)
 
 ## database setting ##
 # WEBSITE_HOSTNAME exists only in production environment
@@ -25,7 +26,6 @@ app.config.update(
 )
 # Initialize the database connection
 db = SQLAlchemy(app)
-
 # Enable Flask-Migrate commands "flask db init/migrate/upgrade" to work
 migrate = Migrate(app, db)
 
@@ -43,6 +43,8 @@ class Cands(db.Model):
     modified_answer = Column(String(8000))
     commentaires = Column(String(8000))
 
+    def __str__(self):
+        return self.name
 ## database setting ##
 
 
@@ -67,12 +69,13 @@ def add_commentaire():
     db.session.add(result)
     db.session.commit()
 
-@app.route("/newquestion",methods=['POST'])
-def newquetion():
-    user=request.values.get('username')
-    print(user)
-    cands=Cands.query.filter_by(username=user).all()
-    return user
+@app.route("/newquestion",methods=['POST','GET'])
+def newquestion():
+    if request.method == "POST":
+        user = request.values.get("username")
+        print(user)
+    #cands=Cands.query.filter_by(username=user).all()
+        return user
 
 if __name__ == "__main__":
     app.run()

@@ -38,9 +38,9 @@
             <div class="msg-info-name">MySLife</div>
             <div class="msg-info-time"></div>
           </div>
-          <form class="newquestion" method="get">
+          <form class="newquestion" method="post" action="{{ url_for('newquestion') }}">
             <label for="username">Index</label>
-            <input name="username" id="username" type="text">
+            <input name="username" id="username" type="text" placeholder="a1">
             <button type="submit" class="msger-send-btn">Nouvelle question</button>
           </form>
           <div class="msg-text">
@@ -90,7 +90,7 @@
   <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
   <script>
     const msgerForm = get(".msger-inputarea");
-    const newQuestion=get(".msg-bubble")
+    const newQuestion=get(".newquestion")
     const msgerInput = get(".msger-input");
     const cmtInput = get(".cmt-input");
     const msgerChat = get(".msger-chat");
@@ -189,7 +189,7 @@
 
       function newQuestions() {
         $.ajax({
-            url: '/newquestion',
+            url: '/',
             type: 'POST',
             success: function(response){
                 console.log(response);
