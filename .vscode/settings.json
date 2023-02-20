@@ -1,0 +1,11 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "driver": "PostgreSQL",
+      "connectString": "postgres://liuxin:513998Dui@chatgpt.postgres.database.azure.com/postgres?sslmode=require",
+      "name": "test"
+    }
+  ]
+}
