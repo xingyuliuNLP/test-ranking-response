@@ -187,16 +187,25 @@
 
     }
 
-      function newQuestions(rawText) {
-
-     $.get("/newquestion", { msg: rawText }).done(function (data) {
-        console.log(data)
-        console.log(rawText);
+      function newQuestions() {
+        $.ajax({
+            url: '/newquestion',
+            type: 'POST',
+            success: function(response){
+                console.log(response);
+            },
+            error: function(error){
+                console.log(error);
+            }
+        });
+     //$.get("/newquestion", { msg: rawText }).done(function (data) {
+       // console.log(data)
+       // console.log(rawText);
         //appendMessage(PERSON_NAME, PERSON_IMG, "left", msg);
         //document.getElementById("r1").textContent=msg[1];
         //document.getElementById("r2").textContent=msg[2];
         //document.getElementById("r3").textContent=msg[3];
-      });
+      //});
 
       }
     // clear response
