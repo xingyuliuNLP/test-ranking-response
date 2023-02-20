@@ -38,8 +38,8 @@
             <div class="msg-info-name">MySLife</div>
             <div class="msg-info-time"></div>
           </div>
-          <form class="newquestion" method="post">
-            <label for="username">Prénom</label>
+          <form class="newquestion" method="get">
+            <label for="username">Index</label>
             <input name="username" id="username" type="text">
             <button type="submit" class="msger-send-btn">Nouvelle question</button>
           </form>
@@ -189,8 +189,8 @@
 
       function newQuestions(rawText) {
 
-     $.get("/newquestion", { msg: rawText }).done(function () {
-        console.log(msg)
+     $.get("/newquestion", { msg: rawText }).done(function (data) {
+        console.log(data)
         console.log(rawText);
         //appendMessage(PERSON_NAME, PERSON_IMG, "left", msg);
         //document.getElementById("r1").textContent=msg[1];

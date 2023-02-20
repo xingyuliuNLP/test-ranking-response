@@ -46,8 +46,8 @@ class Cands(db.Model):
 ## database setting ##
 
 
-def return_responses(q):
-    cands = Cands.query.filter_by(question=q).all()
+def return_responses(user):
+    cands=Cands.query.filter_by(username=user).all()
     response=[]
     for cand in cands:
         response.append(cand.answer)
@@ -55,7 +55,8 @@ def return_responses(q):
 
 @app.route("/", methods=['GET', 'POST'])
 def expert():
-    return render_template("index.html")
+    cands=Cands.query.all()
+    return render_template("index.html",cands=cands)
 
 @app.route('/add', methods=['POST'])
 def add_commentaire():
@@ -67,12 +68,12 @@ def add_commentaire():
     db.session.add(result)
     db.session.commit()
 
-@app.route("/newquestion/")
-def send_question():
-    user=request.values.get('username')
-    print(user)
-    cands=Cands.query.filter_by(username=user).all()
-    return cands
+#@app.route("/newquestion")
+#def send_question():
+    #user=request.values.get('username')
+    #print(user)
+    #cands=Cands.query.filter_by(username=user).all()
+    #return user
 
 if __name__ == "__main__":
     app.run()
