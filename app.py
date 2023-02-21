@@ -76,9 +76,11 @@ def newquestion():
     cands=Cands.query.filter_by(username=colis).all()
     response={}
     r=[]
-    response['q']=cands.question
+    q=[]
     for cand in cands:
+        q.append(cand.question)
         r.append(cand.answer)
+    response['q']=q[0]
     response['r']=r
     return jsonify(response)
 

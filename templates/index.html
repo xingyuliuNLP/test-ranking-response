@@ -172,15 +172,10 @@
         const response = await fetch('/newquestion', requete)
         const data = await response.json();
         console.log(data);
-
-     //$.get("/newquestion").done(function (data) {
-        //console.log('run');
-        //console.log(data);
-       // appendMessage(PERSON_NAME, PERSON_IMG, "left", data);
-        //document.getElementById("r1").textContent=msg[1];
-        //document.getElementById("r2").textContent=msg[2];
-        //document.getElementById("r3").textContent=msg[3];
-      //});
+        appendMessage(PERSON_NAME, PERSON_IMG, "left", data['q']);
+        document.getElementById("r1").textContent=data['r'][0];
+        document.getElementById("r2").textContent=data['r'][1];
+        document.getElementById("r3").textContent=data['r'][2];
 
       }
     // clear response
