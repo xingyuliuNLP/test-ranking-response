@@ -38,11 +38,8 @@
             <div class="msg-info-name">MySLife</div>
             <div class="msg-info-time"></div>
           </div>
-          <form class="newquestion" method="post" action="{{ url_for('newquestion') }}">
-            <label for="username">Index</label>
-            <input name="username" id="username" type="text" placeholder="a1">
-            <button type="submit" class="msger-send-btn">Nouvelle question</button>
-          </form>
+            <input name="username" id="username" class="username" type="text" placeholder="a1">
+            <button class="msger-send-btn" onclick="newQuestions()">Nouvelle question</button>
           <div class="msg-text">
           </div>
         </div>
@@ -79,18 +76,18 @@
       </main>
       </div>
       <div style="width: 30%; float:right" class="msger-inputarea">
-    <form class="msger-inputarea" method="post" action="{{ url_for('add_commentaire') }}">
+    <!--<form class="msger-inputarea" method="post" action="{{ url_for('add_commentaire') }}">
       <textarea type="input" class="msger-input" id="response" name="response" placeholder="Entrer votre réponse ..."></textarea>
       <textarea type="input" class="cmt-input" id="commentaire" name="commentaire">Commentaire : </textarea>
       <button type="submit" class="msger-send-btn" onclick="clearContent()">Envoyer</button>
     </form>
     </div>
-  <!-- </section> -->
+   </section> -->
   <!-- partial -->
   <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
   <script>
     const msgerForm = get(".msger-inputarea");
-    const newQuestion=get(".newquestion")
+    const userName=get(".username");
     const msgerInput = get(".msger-input");
     const cmtInput = get(".cmt-input");
     const msgerChat = get(".msger-chat");
@@ -109,14 +106,6 @@
     const PERSON_NAME = "Utilisatrice";
     const EXPERT_NAME = "Experte";
 
-    newQuestion.addEventListener("submit", event => {
-      event.preventDefault();
-
-      //appendMessage(PERSON_NAME, PERSON_IMG, "left", msgText);
-      // finalResponse(msgText);
-      newQuestions()
-
-    });
     msgerForm.addEventListener("submit", event => {
       event.preventDefault();
 
@@ -127,7 +116,20 @@
       // finalResponse(msgText);
 
     });
-
+    function appendUsername(name, img, side, text) {
+      //   Simple solution for small apps
+      const msgHTML = `
+<div class="msg ${side}-msg">
+  <div class="msg-img" style="background-image: url(${img})"></div>
+  <div class="msg-bubble">
+    <div class="msg-info">
+      <div class="msg-info-name">${name}</div>
+      <div class="msg-info-time">${formatDate(new Date())}</div>
+    </div>
+    <div class="msg-u">${text}</div>
+  </div>
+</div>
+`;
     function appendMessage(name, img, side, text) {
       //   Simple solution for small apps
       const msgHTML = `
@@ -142,7 +144,9 @@
   </div>
 </div>
 `;
-
+      msgerChat.insertAdjacentHTML("beforeend", msgHTML);
+      msgerChat.scrollTop += 500;
+    }
       msgerChat.insertAdjacentHTML("beforeend", msgHTML);
       msgerChat.scrollTop += 500;
     }
@@ -166,42 +170,29 @@
       msgerBotChat.scrollTop += 500;
     }
 
-    function botResponse(rawText) {
+      async function newQuestions() {
+        var userName = document.getElementById('username').value;
 
-      // Bot Response
-      $.get("/get_response", { msg: rawText }).done(function (data) {
-        console.log(data);
-        const r1=data[0];
-        const r2=data[1];
-        const r3=data[2];
-        document.getElementById("r1").textContent=r1;
-        document.getElementById("r2").textContent=r2;
-        document.getElementById("r3").textContent=r3;
-        // msgerBotChat.insertAdjacentHTML("beforeend", msgHTML);
-        msgerBotChat.scrollTop += 500;
+        console.log('Envoi colis:',userName);
 
-        // appendBotMessage(BOT_NAME, BOT_IMG, "left", response);
-
-
-      });
-
-    }
-
-      function newQuestions() {
-        $.ajax({
-            url: '/newquestion',
-            type: 'POST',
-            success: function(response){
-                console.log(response);
+        // PARAMÈTRES DE LA REQUÊTE
+        const requete = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
             },
-            error: function(error){
-                console.log(error);
-            }
-        });
-     //$.get("/newquestion", { msg: rawText }).done(function (data) {
-       // console.log(data)
-       // console.log(rawText);
-        //appendMessage(PERSON_NAME, PERSON_IMG, "left", msg);
+            body: JSON.stringify(userName)
+        };
+
+        // ENVOI ET RÉCUPÉRATION DE LA RÉPONSE
+        const response = await fetch('/newquestion', requete)
+        const data = await response.json();
+        console.log(data);
+
+     //$.get("/newquestion").done(function (data) {
+        //console.log('run');
+        //console.log(data);
+       // appendMessage(PERSON_NAME, PERSON_IMG, "left", data);
         //document.getElementById("r1").textContent=msg[1];
         //document.getElementById("r2").textContent=msg[2];
         //document.getElementById("r3").textContent=msg[3];

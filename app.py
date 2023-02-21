@@ -1,5 +1,6 @@
 import os
-from flask import Flask, render_template, request
+import json
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String
@@ -8,8 +9,6 @@ from flask_wtf.csrf import CSRFProtect
 
 app = Flask(__name__)
 app.static_folder = 'static'
-csrf = CSRFProtect(app)
-
 ## database setting ##
 # WEBSITE_HOSTNAME exists only in production environment
 if 'WEBSITE_HOSTNAME' not in os.environ:
@@ -69,13 +68,19 @@ def add_commentaire():
     db.session.add(result)
     db.session.commit()
 
-@app.route("/newquestion",methods=['POST','GET'])
+@app.route("/newquestion",methods=['POST'])
 def newquestion():
-    if request.method == "POST":
-        user = request.values.get("username")
-        print(user)
-    #cands=Cands.query.filter_by(username=user).all()
-        return user
+    #if request.method == "POST":
+    colis = request.get_json()
+    print(colis)
+    cands=Cands.query.filter_by(username=colis).all()
+    response={}
+    r=[]
+    response['q']=cands.question
+    for cand in cands:
+        r.append(cand.answer)
+    response['r']=r
+    return jsonify(response)
 
 if __name__ == "__main__":
     app.run()
