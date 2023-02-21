@@ -76,11 +76,9 @@
       </main>
       </div>
       <div style="width: 30%; float:right" class="msger-inputarea">
-    <form class="msger-inputarea" method="post" action="{{ url_for('add_commentaire') }}">
       <textarea type="input" class="msger-input" id="response" name="response" placeholder="Entrer votre réponse ..."></textarea>
       <textarea type="input" class="cmt-input" id="commentaire" name="commentaire">Commentaire : </textarea>
       <button type="submit" class="msger-send-btn" onclick="clearContent()">Envoyer</button>
-    </form>
     </div>
    <!--</section> -->
   <!-- partial -->
@@ -106,21 +104,10 @@
     const PERSON_NAME = "Utilisatrice";
     const EXPERT_NAME = "Experte";
 
-    msgerForm.addEventListener("submit", event => {
-      event.preventDefault();
-
-      const msgText = msgerInput.value;
-      if (!msgText) return;
-
-      appendMessage(EXPERT_NAME, EXPERT_IMG, "right", msgText);
-      // finalResponse(msgText);
-
-    });
-    function appendMessage(name, img, side, text) {
+    function appendMessage(name, side, text) {
       //   Simple solution for small apps
       const msgHTML = `
-<div class="msg ${side}-msg">
-  <div class="msg-img" style="background-image: url(${img})"></div>
+<div class="msg ${side}-msg" id="q">
   <div class="msg-bubble">
     <div class="msg-info">
       <div class="msg-info-name">${name}</div>
@@ -172,18 +159,39 @@
         const response = await fetch('/newquestion', requete)
         const data = await response.json();
         console.log(data);
-        appendMessage(PERSON_NAME, PERSON_IMG, "left", data['q']);
+        appendMessage(PERSON_NAME, "left", data['q']);
         document.getElementById("r1").textContent=data['r'][0];
         document.getElementById("r2").textContent=data['r'][1];
         document.getElementById("r3").textContent=data['r'][2];
 
       }
-    // clear response
-    function clearContent(){
-      // document.getElementById('proposition').innerHTML = '';
-      document.getElementById("r1").textContent='';
-      document.getElementById("r2").textContent='';
-      document.getElementById("r3").textContent='';
+    // send then clear response
+    async function clearContent(){
+        var rModified = msgerInput.value;
+        var cmt = cmtInput.value;
+        var userName = document.getElementById('username').value;
+        console.log(rModified);
+        var colis = {
+          user:userName,
+          rModified: rModified,
+          cmt:cmt
+        }
+        const requete = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(colis)
+        };
+
+        const response = await fetch('/add', requete)
+
+        document.getElementById("r1").textContent='';
+        document.getElementById("r2").textContent='';
+        document.getElementById("r3").textContent='';
+        document.getElementById("q").textContent='';
+        msgerInput.value='';
+        cmtInput.value='Commentaires : ';
     }
     // Utils
     function get(selector, root = document) {

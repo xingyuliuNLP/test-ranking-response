@@ -39,20 +39,17 @@ class Cands(db.Model):
     answer = Column(String(8000))
     sourceq = Column(String(50))
     thematique = Column(String(50))
-    modified_answer = Column(String(8000))
-    commentaires = Column(String(8000))
 
     def __str__(self):
         return self.name
+class results(db.Model):
+    __tablename__ = 'results'
+    username = Column(String(50),primary_key=True)
+    rmodified = Column(String(8000))
+    comment = Column(String(8000))
+
 ## database setting ##
 
-
-def return_responses(user):
-    cands=Cands.query.filter_by(username=user).all()
-    response=[]
-    for cand in cands:
-        response.append(cand.answer)
-    return response
 
 @app.route("/", methods=['GET', 'POST'])
 def expert():
@@ -60,17 +57,19 @@ def expert():
 
 @app.route('/add', methods=['POST'])
 def add_commentaire():
-    response = request.values.get('response')
-    commentaire = request.values.get('commentaire')
-    result=Cands()
-    result.commentaires = commentaire
-    result.modified_answer = response
+    colis = request.get_json()
+    user=colis['user']
+    response = colis['rModified']
+    commentaire = colis['cmt']
+    result=results()
+    result.username = user
+    result.comment = commentaire
+    result.rmodified = response
     db.session.add(result)
     db.session.commit()
 
 @app.route("/newquestion",methods=['POST'])
 def newquestion():
-    #if request.method == "POST":
     colis = request.get_json()
     print(colis)
     cands=Cands.query.filter_by(username=colis).all()
