@@ -76,13 +76,13 @@
       </main>
       </div>
       <div style="width: 30%; float:right" class="msger-inputarea">
-    <!--<form class="msger-inputarea" method="post" action="{{ url_for('add_commentaire') }}">
+    <form class="msger-inputarea" method="post" action="{{ url_for('add_commentaire') }}">
       <textarea type="input" class="msger-input" id="response" name="response" placeholder="Entrer votre réponse ..."></textarea>
       <textarea type="input" class="cmt-input" id="commentaire" name="commentaire">Commentaire : </textarea>
       <button type="submit" class="msger-send-btn" onclick="clearContent()">Envoyer</button>
     </form>
     </div>
-   </section> -->
+   <!--</section> -->
   <!-- partial -->
   <script src='https://use.fontawesome.com/releases/v5.0.13/js/all.js'></script>
   <script>
@@ -116,20 +116,6 @@
       // finalResponse(msgText);
 
     });
-    function appendUsername(name, img, side, text) {
-      //   Simple solution for small apps
-      const msgHTML = `
-<div class="msg ${side}-msg">
-  <div class="msg-img" style="background-image: url(${img})"></div>
-  <div class="msg-bubble">
-    <div class="msg-info">
-      <div class="msg-info-name">${name}</div>
-      <div class="msg-info-time">${formatDate(new Date())}</div>
-    </div>
-    <div class="msg-u">${text}</div>
-  </div>
-</div>
-`;
     function appendMessage(name, img, side, text) {
       //   Simple solution for small apps
       const msgHTML = `
@@ -147,9 +133,7 @@
       msgerChat.insertAdjacentHTML("beforeend", msgHTML);
       msgerChat.scrollTop += 500;
     }
-      msgerChat.insertAdjacentHTML("beforeend", msgHTML);
-      msgerChat.scrollTop += 500;
-    }
+
 
     function appendBotMessage(name, img, side, text) {
       //   Simple solution for small apps
