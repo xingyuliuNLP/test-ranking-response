@@ -73,14 +73,14 @@ def newquestion():
     #if request.method == "POST":
     colis = request.get_json()
     print(colis)
-    #cands=Cands.query.filter_by(username=colis).all()
-    #response={}
-    #r=[]
-    #response['q']=cands.question
-    #for cand in cands:
-        #r.append(cand.answer)
-    #response['r']=r
-    return jsonify({'response':'merci'})
+    cands=Cands.query.filter_by(username=colis).all()
+    response={}
+    r=[]
+    response['q']=cands.question
+    for cand in cands:
+        r.append(cand.answer)
+    response['r']=r
+    return jsonify(response)
 
 if __name__ == "__main__":
     app.run()
