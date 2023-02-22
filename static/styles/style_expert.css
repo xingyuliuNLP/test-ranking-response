@@ -143,13 +143,13 @@ body {
 .msger-input {
   /* flex: 5;
   width: 735px; */
-  height: 500px;
+  height: 400px;
   background: #eee;
   font-family: Helvetica, sans-serif;
 
 }
 .cmt-input {
-  height: 250px;
+  height: 20px;
   font-family: Helvetica, sans-serif;
 
 }
