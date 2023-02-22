@@ -167,12 +167,15 @@
       }
     // send then clear response
     async function clearContent(){
+        var rchosen = document.querySelector("ul > li").innerText;
+        console.log(rchosen);
         var rModified = msgerInput.value;
         var cmt = cmtInput.value;
         var userName = document.getElementById('username').value;
         console.log(rModified);
         var colis = {
           user:userName,
+          rChosen: rChosen,
           rModified: rModified,
           cmt:cmt
         }

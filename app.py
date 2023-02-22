@@ -45,6 +45,7 @@ class Cands(db.Model):
 class results(db.Model):
     __tablename__ = 'results'
     username = Column(String(50),primary_key=True)
+    rchosen = Column(String(8000))
     rmodified = Column(String(8000))
     comment = Column(String(8000))
 
@@ -58,13 +59,15 @@ def expert():
 @app.route('/add', methods=['POST'])
 def add_commentaire():
     colis = request.get_json()
-    user=colis['user']
+    user = colis['user']
+    rchosen = colis['rChosen']
     response = colis['rModified']
     commentaire = colis['cmt']
     result=results()
     result.username = user
     result.comment = commentaire
     result.rmodified = response
+    result.rchosen = rchosen
     db.session.add(result)
     db.session.commit()
 
