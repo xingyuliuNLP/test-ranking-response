@@ -145,11 +145,19 @@ body {
   width: 735px; */
   height: 500px;
   background: #eee;
+  font-family: Helvetica, sans-serif;
+
+}
+.cmt-input {
+  height: 250px;
+  font-family: Helvetica, sans-serif;
+
 }
 
 .msg-text {
-  display: flex;
-  flex-flow: column wrap;
+  /* display: flex; */
+  /* flex-flow: column wrap; */
+  width: 100%;
 
 }
 
@@ -196,6 +204,7 @@ body {
 ul.sortable {
     list-style: none;
     margin: 0px;
+    width: 100%;
  }
 ul.sortable li {
     list-style-image: none;
@@ -205,7 +214,10 @@ ul.sortable li {
     border-radius: 4px;
     /* color: #666; */
     cursor: move;
+    width: 100%;
  }
-/* ul.sortable li:hover {
-    background-color: #eee;
- } */
+
+ pre {
+  white-space: pre-wrap;
+  font-family: Helvetica, sans-serif;
+}
