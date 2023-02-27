@@ -185,11 +185,15 @@ body {
   cursor: pointer;
   transition: background 0.23s;
 }
-
+.msger-send-btn:focus {
+  background: rgb(0, 180, 50);
+}
 .msger-send-btn:hover {
   background: rgb(0, 180, 50);
 }
-
+#btn:focus {
+  background: rgb(0, 180, 50);
+}
 #btn:hover {
   background: rgb(0, 180, 50);
 }
